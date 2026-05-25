@@ -43,7 +43,7 @@ Quick routing:
 | "triage/reorder/tune/edit/config/flags/prompt/dataset" | Custom editor with export | `references/official-20-patterns.md`, `references/custom-editors.md` |
 | "Obsidian", "MOC", "worklog", "AGENTS.md", "CLAUDE.md", durable project docs, long-term project memory | Markdown source of truth with HTML review/editor companion | `references/markdown-obsidian-loop.md` |
 | "complex app", "routing", "state management", "shadcn", "React artifact", "multi-component artifact" | Consider complex web artifact builder instead of simple HTML | `references/official-details.md` |
-| "multiple AI", "subagents", "agent team", "dispatcher", "coordinate workers" | HTML dispatcher + Markdown ledger + focused subagent prompts | `references/official-details.md`, `references/markdown-obsidian-loop.md` |
+| "multiple AI", "subagents", "agent team", "dispatcher", "coordinate workers", "one person managing multiple AIs" | Solo multi-AI operating loop: HTML dispatcher + focused prompts + Markdown ledger | `references/solo-multi-ai-workflow.md`, `references/markdown-obsidian-loop.md`, `references/official-details.md` |
 | "compare this with GitHub/community tools", "market alternatives", "what is different" | Ecosystem comparison | `references/ecosystem-comparison.md` |
 | "Obsidian vs HTML", "markdown vault", "long-term memory vs artifact" | Markdown/HTML hybrid workflow | `references/markdown-obsidian-loop.md`, `references/ecosystem-comparison.md` |
 
@@ -129,6 +129,8 @@ For one person coordinating multiple AI agents, use HTML as the dispatcher:
 - Export one focused prompt per worker/agent.
 - Track which Markdown note each result must update.
 - Keep decision logs and worklogs in Markdown so every agent can reload context without needing the HTML UI.
+
+For a unified solo multi-AI workflow, read `references/solo-multi-ai-workflow.md`. It defines the full loop: task assignment, single-task prompt export, execution receipt, Markdown write-back, Obsidian sync, and status tracking.
 
 ## Quality Bar
 

@@ -41,6 +41,7 @@ Supported patterns:
 - One-off editors: triage boards, feature flags, prompt tuners
 - Markdown / Obsidian write-back loops
 - Multi-AI dispatch boards with per-task prompt export
+- A complete solo multi-AI operating loop: task assignment, single-task prompt export, execution receipt, Markdown write-back, Obsidian sync, and status tracking
 
 ## Design principles
 
@@ -99,6 +100,8 @@ Use Claude Code HTML Skill to read my Obsidian project MOC and worklog, then gen
 Use Claude Code HTML Skill to split the current project into a multi-AI dispatch board. Each task needs owner, blocker, evidence required, target markdown note, and a copyable single-task prompt.
 ```
 
+This mode is not "put every task into one giant prompt." The default export is one focused task prompt. After execution, the worker returns an execution receipt and updates the Markdown/Obsidian record.
+
 ## Structure
 
 ```text
@@ -110,6 +113,7 @@ skill/
     official-20-patterns.md
     official-details.md
     markdown-obsidian-loop.md
+    solo-multi-ai-workflow.md
     ecosystem-comparison.md
     custom-editors.md
     exploration-and-planning.md

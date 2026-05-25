@@ -41,6 +41,7 @@ HTML = 临时操作台 / 可视化 / 编辑器 / 调度台 / 导出器
 - 一次性编辑器：triage board、feature flags、prompt tuner
 - Obsidian/Markdown 回写工作流
 - 多 AI 调度台：单任务 prompt 导出、owner、blocker、evidence
+- 一个人管理多个 AI 的正式闭环：任务分配、单任务 prompt、执行回执、Markdown 回写、Obsidian 同步、状态追踪
 
 ## 最重要的设计原则
 
@@ -99,6 +100,8 @@ Claude Code HTML Skill
 使用 Claude Code HTML Skill，把当前项目拆成适合多个 AI 执行的任务调度台。每个任务要有 owner、blocker、evidence required、target markdown note，并能复制单任务 prompt。
 ```
 
+这个模式不是“让一个 prompt 做所有任务”。它的默认导出是单任务 prompt，执行后要求 AI 返回 execution receipt，再把结果写回 Obsidian/Markdown。
+
 ## 目录结构
 
 ```text
@@ -110,6 +113,7 @@ skill/
     official-20-patterns.md
     official-details.md
     markdown-obsidian-loop.md
+    solo-multi-ai-workflow.md
     ecosystem-comparison.md
     custom-editors.md
     exploration-and-planning.md
