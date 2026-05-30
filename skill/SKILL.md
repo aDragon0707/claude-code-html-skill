@@ -1,6 +1,6 @@
 ---
 name: claude-code-html-skill
-description: Create official-style self-contained HTML artifacts inspired by Anthropic's html-effectiveness examples and Claude Code HTML workflow. Use aggressively for substantial docs, plans, specs, reports, explainers, comparisons, PR reviews, code understanding, design explorations, component matrices, prototypes, diagrams, slide decks, status or incident reports, implementation plans, PR writeups, and one-off editors for triage, feature flags, prompts, configs, datasets, tickets, or priorities. This skill should choose the right artifact pattern from the official 20-example playbook, build a single offline .html file, and include interactive controls or copy/export affordances whenever the user needs to manipulate or round-trip state. Stay in chat/markdown only for short answers, code-only snippets, terminal output, or content that is only a few sentences.
+description: Create self-contained offline HTML artifacts when a substantial task benefits from layout, visualization, interaction, copy/export, or Markdown/Obsidian round-trip. Use for complex comparisons, PR/code explainers, implementation plans, reports, project-memory boards, multi-agent dispatchers, and one-off editors. Require focused exports for editors, dispatchers, and project-memory artifacts. Stay in chat/Markdown for short answers, single commands, code snippets, terminal output, or brief summaries.
 ---
 
 # Claude Code HTML Skill
@@ -24,10 +24,39 @@ Before writing HTML, name the primary job in one sentence:
 
 If there is no concrete job, use markdown or ask what decision/action the artifact should support.
 
+Allowed `primary_job` values:
+
+- `compare`
+- `explore`
+- `review`
+- `explain`
+- `prototype`
+- `report`
+- `plan`
+- `editor`
+- `dispatcher`
+
+If the request does not fit one of these jobs, or if HTML would not improve comprehension, manipulation, export, or reuse, stay in chat/Markdown.
+
 ## Official Pattern Router
 
 Use `references/official-20-patterns.md` as the main playbook. It maps the 20 official examples into reusable artifact shapes. Use `references/official-details.md` when you need official boundary rules: artifact criteria, simple HTML vs React builder, testing tradeoffs, sharing/export, and subagent coordination.
 Use `references/ecosystem-comparison.md` when the user asks how this skill compares to GitHub repos, Obsidian plugins, markdown-viewer tools, or market alternatives.
+
+## Routing Contract
+
+Before writing HTML, decide this compact contract:
+
+| Field | Required decision |
+|---|---|
+| `primary_job` | One of `compare`, `explore`, `review`, `explain`, `prototype`, `report`, `plan`, `editor`, `dispatcher`. |
+| `should_html` | Why HTML is better than chat/Markdown for this task. |
+| `selected_pattern` | The official-style pattern or reference being used. |
+| `required_exports` | Copy/export outputs the user needs next. Required for `editor`, `dispatcher`, and project-memory artifacts. |
+| `markdown_target` | Required when the artifact affects durable project memory, Obsidian, worklogs, handoffs, `AGENTS.md`, or `CLAUDE.md`. |
+| `verification` | Checks to run or state as blocked before claiming done. |
+
+For `editor`, `dispatcher`, project-memory boards, and Markdown/Obsidian round-trip artifacts, use `references/artifact-contract.md` plus the domain reference. For ordinary explainers/reports, keep the contract lightweight and visible through the first viewport and final verification.
 
 Quick routing:
 
@@ -61,6 +90,16 @@ Every artifact must satisfy:
 6. Concrete content from the task. Avoid placeholder SaaS boilerplate.
 7. If the user manipulates state, include copy/export. This is non-negotiable.
 8. If the user is managing long-term project memory, keep Markdown as the source of truth and use HTML as a generated review/editor/export surface.
+
+## Artifact Contract
+
+For `editor`, `dispatcher`, project-memory board, or Markdown/Obsidian round-trip artifacts, include a small contract in the HTML as JSON:
+
+```html
+<script id="artifact-contract" type="application/json">{...}</script>
+```
+
+Minimum fields: `primary_job`, `selected_pattern`, `why_html`, `sources_used`, `exports`, and `verification`. Every declared export must have a matching control marked with `data-export-label` or `aria-label`. Keep the contract short; it is an audit handle, not user-facing bureaucracy. See `references/artifact-contract.md`.
 
 Prefer simple single-file HTML for most Claude Code project artifacts. Escalate to a React/Vite-style artifact only when the artifact genuinely needs multi-component state, routing, or a component library. See `references/official-details.md`.
 
@@ -132,20 +171,26 @@ For one person coordinating multiple AI agents, use HTML as the dispatcher:
 
 For a unified solo multi-AI workflow, read `references/solo-multi-ai-workflow.md`. It defines the full loop: task assignment, single-task prompt export, execution receipt, Markdown write-back, Obsidian sync, and status tracking.
 
-## Quality Bar
+## Definition Of Done
 
-Before finalizing, check:
+Before finalizing, verify:
 
-- Is there one primary job?
-- Does the layout match the job?
-- Is the first screen self-explanatory?
-- Are comparisons side by side?
-- Are diagrams near the text they explain?
-- Are interactions load-bearing rather than decorative?
-- Does edited state export correctly?
-- For project memory tasks, does the artifact preserve a clean path back into Markdown/Obsidian?
-- Are facts, inference, risks, and recommendations visually distinct?
-- Does the HTML open without external dependencies?
+- One `primary_job` and one selected pattern are clear.
+- First viewport shows: job, source data, primary action, export path.
+- Export controls stay visible near the working area, not hidden at page bottom only.
+- Empty/error states explain what is missing and what the user can still export.
+- Mobile layout preserves the primary action and export button without horizontal scroll.
+- Interactive state gives immediate feedback: counts, changed markers, warnings, or preview.
+- The layout matches the job: comparisons are side-by-side, timelines are visual, diagrams are near the text, editors make state manipulable.
+- Interactions are load-bearing and exportable, not decorative.
+- Required exports work with `navigator.clipboard.writeText` plus a textarea fallback for `file://`.
+- Editor/export scopes are labeled as `single`, `selected`, `bucket`, `changed-only`, or `whole`.
+- Project-memory artifacts name the target Markdown file/note and preserve `[[Wiki links]]`, `#tags`, headings, and task checkboxes.
+- Dispatcher artifacts export one focused task prompt by default; batch export is explicit and limited to independent tasks.
+- `Done` on project boards requires evidence plus Markdown write-back, or a clear `not_applicable` reason.
+- The HTML opens offline and has no external dependencies unless the user explicitly requested them.
+
+If you cannot run a verification step, say `blocked` or `uncertain` and name the missing check.
 
 ## Anti-Patterns
 

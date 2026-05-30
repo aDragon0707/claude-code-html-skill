@@ -39,6 +39,18 @@ Official examples export the thing the user needs next, not every possible thing
 - Feature flag editor: `Copy diff` exports only changed keys; `Copy full JSON` is secondary.
 - Prompt tuner: `Copy prompt` exports only the edited prompt template.
 
+Use the shared export scope names from `artifact-contract.md`:
+
+| Scope | Default use |
+|---|---|
+| `single` | one selected row/card/item; best for execution prompts |
+| `selected` | explicit multi-select; user chose the batch |
+| `bucket` | one visible bucket such as `Now` or `Review` |
+| `changed-only` | diffs for config, prompt, flags, labels, datasets |
+| `whole` | board snapshot or planning Markdown, not execution by default |
+
+Every export button label should reveal both format and scope, for example `Copy Single Task Prompt`, `Copy Selected Tasks`, `Copy Changed Diff`, or `Copy Board Markdown`.
+
 For project-management boards, add focused exports:
 
 - Per-card `Copy task prompt`.

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checker negative external fetch fixture</title>
+</head>
+<body>
+  <main>
+    <h1>Editor with external network use</h1>
+    <button data-export-label="Copy Prompt" onclick="copyText('Prompt')">Copy Prompt</button>
+  </main>
+  <script id="artifact-contract" type="application/json">
+  {
+    "primary_job": "editor",
+    "selected_pattern": "prompt tuner",
+    "why_html": "Prompt state needs live preview and export.",
+    "sources_used": ["prompt-template.md"],
+    "exports": [
+      {
+        "label": "Copy Prompt",
+        "format": "prompt",
+        "scope": "changed-only",
+        "target": "next prompt"
+      }
+    ],
+    "verification": ["opens_offline", "export_works", "first_viewport_passes"]
+  }
+  </script>
+  <script>
+    function copyText(text) {
+      return navigator.clipboard.writeText(text);
+    }
+
+    fetch("https://example.com/api/state");
+  </script>
+</body>
+</html>

@@ -33,6 +33,39 @@ Use HTML for:
 5. Export Markdown that can be pasted into the source file with minimal cleanup.
 6. State exactly where the export belongs.
 
+## Source Authority
+
+When several Markdown sources disagree, preserve this order:
+
+1. Latest user instruction in the current conversation.
+2. Project-level `AGENTS.md`, `CLAUDE.md`, or equivalent repo rules.
+3. Current dashboard, decision log, or handoff note.
+4. Worklogs and MOCs.
+5. Older historical notes.
+
+If the target file is unclear, export a proposed patch and ask before claiming Markdown sync is done.
+
+## Write-Back Patch Format
+
+Prefer small targeted patches over rewriting whole notes:
+
+```md
+Target: `Project/Worklogs/2026-05-30.md`
+Mode: append | replace-section | patch-lines
+Anchor: `## 2026-05-30 Worklog`
+
+Content:
+### Completed
+- [x] T-014 Fix dispatcher export
+  - Result:
+  - Evidence:
+  - Files changed:
+  - Tests:
+  - Remaining risk:
+```
+
+The exported Markdown must preserve `[[Wiki links]]`, `#tags`, `- [ ]` / `- [x]`, heading hierarchy, and existing dataview-style fields when present.
+
 ## Execution Loop
 
 Use this when the HTML artifact is a project board or multi-agent dispatcher:

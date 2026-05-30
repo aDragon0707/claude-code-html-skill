@@ -114,6 +114,29 @@ Status: done | blocked | partial
 
 This receipt is what the human or dispatcher uses to update project state.
 
+For machine-readable workflows, a worker may also return this compact receipt:
+
+```json
+{
+  "task_id": "string",
+  "status": "done | partial | blocked",
+  "changed_files": ["string"],
+  "evidence": ["string"],
+  "open_loops": ["string"],
+  "markdown_updated": {
+    "status": "yes | no | not_applicable",
+    "target": "string"
+  }
+}
+```
+
+Done gate:
+
+- `done` requires non-empty `evidence`.
+- `done` requires `markdown_updated.status` to be `yes` or `not_applicable`.
+- `partial` or `blocked` must preserve `open_loops`.
+- If Markdown was not updated because the target was unclear, the board status is `Review` or `Blocked`, not `Done`.
+
 ### 4. Markdown / Obsidian Write-Back
 
 After execution, update the durable Markdown layer.
