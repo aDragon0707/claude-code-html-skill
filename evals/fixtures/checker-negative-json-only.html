@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checker negative JSON-only fixture</title>
+</head>
+<body>
+  <main>
+    <h1>Dispatcher without real export controls</h1>
+    <p>The export label exists only inside the JSON contract.</p>
+  </main>
+  <script id="artifact-contract" type="application/json">
+  {
+    "primary_job": "dispatcher",
+    "selected_pattern": "solo multi-AI dispatcher",
+    "why_html": "Task cards need focused prompt export.",
+    "sources_used": ["Project/Dashboard.md"],
+    "exports": [
+      {
+        "label": "Copy Task Prompt",
+        "format": "prompt",
+        "scope": "single",
+        "target": "next Codex session"
+      }
+    ],
+    "verification": ["opens_offline", "export_works", "first_viewport_passes"]
+  }
+  </script>
+  <script>
+    navigator.clipboard.writeText("placeholder");
+  </script>
+</body>
+</html>

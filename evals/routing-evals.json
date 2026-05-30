@@ -1,0 +1,141 @@
+[
+  {
+    "id": "trigger_compare_approaches",
+    "input": "Compare three ways to implement the sync queue. I need complexity, risk, test cost, and a recommendation.",
+    "should_trigger": true,
+    "expected": {
+      "primary_job": "compare",
+      "pattern": "side-by-side comparison",
+      "required_exports": ["Copy Recommendation"],
+      "contract_required": false
+    }
+  },
+  {
+    "id": "trigger_pr_review_optional_contract",
+    "input": "Turn this PR into an HTML review artifact with blocking findings first, module map, key diff, and missing tests.",
+    "should_trigger": true,
+    "expected": {
+      "primary_job": "review",
+      "pattern": "code review / annotated diff",
+      "required_exports": ["Copy Findings"],
+      "contract_required": false
+    }
+  },
+  {
+    "id": "trigger_code_explainer_optional_contract",
+    "input": "Explain how our auth flow works across middleware, sessions, and API routes. I want a map and key code references.",
+    "should_trigger": true,
+    "expected": {
+      "primary_job": "explain",
+      "pattern": "code/system understanding",
+      "required_exports": [],
+      "contract_required": false
+    }
+  },
+  {
+    "id": "trigger_plan_optional_contract",
+    "input": "Make an implementation plan with milestones, data flow, risks, acceptance criteria, and not-doing section.",
+    "should_trigger": true,
+    "expected": {
+      "primary_job": "plan",
+      "pattern": "implementation plan",
+      "required_exports": ["Copy Plan Markdown"],
+      "contract_required": false
+    }
+  },
+  {
+    "id": "trigger_prompt_tuner_required_contract",
+    "input": "Make a prompt tuner with editable template, sample previews, changed markers, token counter, and copy final prompt.",
+    "should_trigger": true,
+    "expected": {
+      "primary_job": "editor",
+      "pattern": "prompt tuner",
+      "required_exports": ["Copy Prompt"],
+      "contract_required": true
+    }
+  },
+  {
+    "id": "trigger_feature_flag_editor_required_contract",
+    "input": "Build a one-off feature flag editor for this JSON config. Show dependency warnings and export only changed keys.",
+    "should_trigger": true,
+    "expected": {
+      "primary_job": "editor",
+      "pattern": "feature flag editor",
+      "required_exports": ["Copy Changed Diff"],
+      "contract_required": true
+    }
+  },
+  {
+    "id": "trigger_cn_obsidian_dispatcher_required_contract",
+    "input": "读取我的 Obsidian 项目 MOC 和 worklog，生成一个多 AI 任务调度看板。每张卡要能复制单任务 prompt，并导出要回写的 Markdown worklog section。",
+    "should_trigger": true,
+    "expected": {
+      "primary_job": "dispatcher",
+      "pattern": "solo multi-AI dispatcher",
+      "required_exports": ["Copy Task Prompt", "Copy Worklog Entry"],
+      "contract_required": true
+    }
+  },
+  {
+    "id": "trigger_project_memory_board_required_contract",
+    "input": "把 Dashboard.md、今天的 worklog、handoff note 做成 triage board，并能复制 Markdown patch 回 Dashboard.md。",
+    "should_trigger": true,
+    "expected": {
+      "primary_job": "editor",
+      "pattern": "project-memory board",
+      "required_exports": ["Copy Markdown Patch", "Copy Single Task Prompt"],
+      "contract_required": true
+    }
+  },
+  {
+    "id": "trigger_mixed_markdown_roundtrip_required_contract",
+    "input": "Use the current AGENTS.md and [[Project MOC]] to make an HTML review surface, then export the exact Markdown section to write back.",
+    "should_trigger": true,
+    "expected": {
+      "primary_job": "editor",
+      "pattern": "Markdown / Obsidian round-trip artifact",
+      "required_exports": ["Copy Markdown Patch"],
+      "contract_required": true
+    }
+  },
+  {
+    "id": "near_miss_brief_summary_cn",
+    "input": "帮我把这段话总结成三条 bullet，不要做 artifact。",
+    "should_trigger": false,
+    "expected": {
+      "reason": "brief summary"
+    }
+  },
+  {
+    "id": "near_miss_single_command",
+    "input": "What command lists local git branches?",
+    "should_trigger": false,
+    "expected": {
+      "reason": "single command"
+    }
+  },
+  {
+    "id": "near_miss_code_snippet",
+    "input": "Show me a JavaScript debounce function.",
+    "should_trigger": false,
+    "expected": {
+      "reason": "code-only snippet"
+    }
+  },
+  {
+    "id": "near_miss_terminal_output",
+    "input": "Run npm test and paste the terminal output.",
+    "should_trigger": false,
+    "expected": {
+      "reason": "terminal output"
+    }
+  },
+  {
+    "id": "near_miss_explicit_markdown_pr_description",
+    "input": "Write a short PR description in Markdown. No HTML needed.",
+    "should_trigger": false,
+    "expected": {
+      "reason": "explicit Markdown-only output"
+    }
+  }
+]
