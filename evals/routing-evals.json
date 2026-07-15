@@ -33,6 +33,28 @@
     }
   },
   {
+    "id": "trigger_cn_paper_publication_optional_contract",
+    "input": "把这篇 40 页的 SM2 算法 DOCX 整理成一个可离线阅读的 HTML 论文页面。保留作者、章节、公式、表格、图注和参考文献，用可视化章节索引与固定目录提升可读性。",
+    "should_trigger": true,
+    "expected": {
+      "primary_job": "report",
+      "pattern": "paper publication / long-form research narrative",
+      "required_exports": [],
+      "contract_required": false
+    }
+  },
+  {
+    "id": "trigger_en_visual_paper_page_optional_contract",
+    "input": "Turn this arXiv paper into a self-contained publication page with a visual chapter index, author metadata, sticky contents, numbered sections, wide evidence figures, full captions, citations, and print styles.",
+    "should_trigger": true,
+    "expected": {
+      "primary_job": "report",
+      "pattern": "paper publication / long-form research narrative",
+      "required_exports": [],
+      "contract_required": false
+    }
+  },
+  {
     "id": "trigger_plan_optional_contract",
     "input": "Make an implementation plan with milestones, data flow, risks, acceptance criteria, and not-doing section.",
     "should_trigger": true,
@@ -104,6 +126,14 @@
     "should_trigger": false,
     "expected": {
       "reason": "brief summary"
+    }
+  },
+  {
+    "id": "near_miss_paper_abstract_summary",
+    "input": "Summarize this paper abstract in five bullets. Do not create a webpage or artifact.",
+    "should_trigger": false,
+    "expected": {
+      "reason": "explicit brief summary without artifact"
     }
   },
   {

@@ -1,6 +1,6 @@
 ---
 name: claude-code-html-skill
-description: Create self-contained offline HTML artifacts when a substantial task benefits from layout, visualization, interaction, copy/export, or Markdown/Obsidian round-trip. Use for complex comparisons, PR/code explainers, implementation plans, reports, project-memory boards, multi-agent dispatchers, and one-off editors. Require focused exports for editors, dispatchers, and project-memory artifacts. Stay in chat/Markdown for short answers, single commands, code snippets, terminal output, or brief summaries.
+description: Create self-contained offline HTML artifacts when a substantial task benefits from layout, visualization, interaction, copy/export, or Markdown/Obsidian round-trip. Use for complex comparisons, PR/code explainers, implementation plans, reports, research papers or technical documents converted from PDF/DOCX/Markdown into publication pages, project-memory boards, multi-agent dispatchers, and one-off editors. Require focused exports for editors, dispatchers, and project-memory artifacts. Stay in chat/Markdown for short answers, single commands, code snippets, terminal output, or brief summaries.
 ---
 
 # Claude Code HTML Skill
@@ -19,6 +19,7 @@ Before writing HTML, name the primary job in one sentence:
 - Explain a code path, system, incident, or concept.
 - Prototype an interaction, animation, or UI component.
 - Generate a status report, incident report, slide deck, or leadership brief.
+- Publish a research paper or technical report as a long-form reading page.
 - Create an implementation plan.
 - Build a one-off editor that lets the user manipulate state and copy/export the result.
 
@@ -67,6 +68,7 @@ Quick routing:
 | "make a design system reference", "component variants", "prototype interaction/animation" | Design/prototype artifact | `references/official-20-patterns.md`, `references/design-and-prototypes.md` |
 | "draw diagram", "flowchart", "architecture map", "SVG illustration" | Diagram / illustration | `references/official-20-patterns.md`, `references/diagrams-and-illustrations.md` |
 | "status report", "incident report", "research explainer", "teach me" | Report / research / explainer | `references/official-20-patterns.md`, `references/reports-and-research.md` |
+| "turn this paper/PDF/DOCX into HTML", "paper website", "publication page", "visual paper explainer" | Paper publication / long-form research narrative | `references/paper-publication.md`, `references/matching-your-style.md` |
 | "implementation plan" | Plan with timeline, data flow, risk table, not-doing section | `references/official-20-patterns.md`, `references/exploration-and-planning.md` |
 | "deck", "slides" | Arrow-key deck | `references/official-20-patterns.md`, `references/decks.md` |
 | "triage/reorder/tune/edit/config/flags/prompt/dataset" | Custom editor with export | `references/official-20-patterns.md`, `references/custom-editors.md` |
@@ -85,7 +87,7 @@ Every artifact must satisfy:
 1. Single self-contained `.html` file. Inline CSS and JS. No build step.
 2. Works offline. Avoid external CDNs unless the user explicitly wants them.
 3. Mobile responsive enough to not break.
-4. First viewport explains the job and the interaction.
+4. First viewport explains the job and the interaction. For a paper publication page, it instead establishes the title, thesis/deck, visual chapter map, and provenance; do not force a tool-style action.
 5. Use the format, not markdown wrapped in tags: columns for comparisons, timelines for time, diagrams for flow, matrices for variants, editors for state.
 6. Concrete content from the task. Avoid placeholder SaaS boilerplate.
 7. If the user manipulates state, include copy/export. This is non-negotiable.
@@ -115,6 +117,8 @@ The top of the page should answer within five seconds:
 
 If this is unclear, simplify before adding more sections.
 
+For a paper publication page, use the publication-specific first-viewport test in `references/paper-publication.md`. Reading is the primary action, so exports and controls are optional unless the page includes manipulable state.
+
 ## Output Mechanics
 
 Save the file in the working directory using a descriptive kebab-case `.html` filename, for example:
@@ -124,6 +128,7 @@ Save the file in the working directory using a descriptive kebab-case `.html` fi
 - `comment-threads-implementation-plan.html`
 - `feature-flags-editor.html`
 - `prompt-tuner.html`
+- `paper-title-publication.html`
 
 After saving, tell the user the absolute path. If the page is already open in a browser, tell the user to refresh.
 
@@ -176,10 +181,10 @@ For a unified solo multi-AI workflow, read `references/solo-multi-ai-workflow.md
 Before finalizing, verify:
 
 - One `primary_job` and one selected pattern are clear.
-- First viewport shows: job, source data, primary action, export path.
-- Export controls stay visible near the working area, not hidden at page bottom only.
-- Empty/error states explain what is missing and what the user can still export.
-- Mobile layout preserves the primary action and export button without horizontal scroll.
+- First viewport shows: job, source data, primary action, export path. For paper publication pages, verify title, thesis/deck, chapter navigation, and author/source provenance instead.
+- When exports are required, their controls stay visible near the working area, not hidden at page bottom only.
+- When the artifact has empty/error states, they explain what is missing and what remains readable or exportable.
+- Mobile layout preserves the primary action and any required export button without horizontal scroll.
 - Interactive state gives immediate feedback: counts, changed markers, warnings, or preview.
 - The layout matches the job: comparisons are side-by-side, timelines are visual, diagrams are near the text, editors make state manipulable.
 - Interactions are load-bearing and exportable, not decorative.

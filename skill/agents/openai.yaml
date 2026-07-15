@@ -1,4 +1,4 @@
 interface:
   display_name: "Claude Code HTML Skill"
-  short_description: "Official 20-example HTML playbook"
-  default_prompt: "Create a self-contained HTML artifact for this task using the official Claude Code HTML-effectiveness playbook: first choose the right pattern from the 20 examples, make the first viewport clear, use spatial layout or diagrams where useful, and include live preview/copy/export for editor-style artifacts."
+  short_description: "Offline HTML artifacts and research publications"
+  default_prompt: "Use $claude-code-html-skill to turn this task or paper into the right self-contained offline HTML artifact, with evidence-led layout, a clear first viewport, and focused export controls only when needed."

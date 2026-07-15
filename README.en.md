@@ -37,6 +37,7 @@ Supported patterns:
 - Animation and interaction prototypes
 - SVG diagrams, flowcharts, architecture maps
 - Status reports, incident reports, research explainers
+- Paper publication pages: convert PDF, DOCX, or Markdown research papers into long-form HTML with a visual chapter index, author metadata, sticky contents, wide evidence figures, and complete captions
 - Implementation plans with milestones, data flow, risks, and non-goals
 - One-off editors: triage boards, feature flags, prompt tuners
 - Markdown / Obsidian write-back loops
@@ -102,6 +103,14 @@ Use Claude Code HTML Skill to split the current project into a multi-AI dispatch
 
 This mode is not "put every task into one giant prompt." The default export is one focused task prompt. After execution, the worker returns an execution receipt and updates the Markdown/Obsidian record.
 
+### Paper publication page
+
+```text
+Use Claude Code HTML Skill to turn this paper into a self-contained offline HTML publication. Preserve authors, numbered sections, equations, figures, captions, citations, and limitations; use a visual chapter index, sticky contents, and wide evidence figures for long-form reading.
+```
+
+This pattern borrows publication grammar from Anthropic Transformer Circuits research pages while explicitly forbidding reuse of their logo, mascot, paper text, or article-specific illustrations.
+
 ## Structure
 
 ```text
@@ -110,6 +119,7 @@ skill/
   agents/
     openai.yaml
   references/
+    paper-publication.md
     official-20-patterns.md
     official-details.md
     markdown-obsidian-loop.md
@@ -123,6 +133,8 @@ skill/
     reports-and-research.md
     decks.md
     matching-your-style.md
+  assets/
+    paper-publication-template.html
 ```
 
 ## Relationship to official and community work
@@ -133,6 +145,7 @@ It references:
 
 - Anthropic article: [Using Claude Code: The unreasonable effectiveness of HTML](https://claude.com/blog/using-claude-code-the-unreasonable-effectiveness-of-html)
 - Anthropic examples: [anthropics/html-effectiveness](https://github.com/anthropics/html-effectiveness)
+- Anthropic Transformer Circuits research page: [Verbalizable Representations Form a Global Workspace in Language Models](https://transformer-circuits.pub/2026/workspace/index.html)
 - Anthropic skills / artifact builder ideas: [anthropics/skills](https://github.com/anthropics/skills)
 - Community skill: [dogum/html-artifacts](https://github.com/dogum/html-artifacts)
 

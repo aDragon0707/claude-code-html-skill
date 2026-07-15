@@ -2,6 +2,12 @@
 
 Recurring documents - status updates, post-mortems, deep dives - benefit most from a bit of structure and color. People read them when they're scannable; they ignore them when they're walls of text.
 
+## Paper publication page
+
+For "turn this paper/PDF/DOCX into an HTML website," "make this technical report readable online," or "build a visual paper explainer," read `paper-publication.md` instead of treating the source as a generic concept explainer. Preserve the paper's authorship, section hierarchy, claims, figures, captions, equations, citations, and limitations. Use `../assets/paper-publication-template.html` as a starting structure when useful.
+
+The primary action is reading and navigating. Do not force editor controls or exports onto a static paper. Add interaction only when it helps inspect real evidence, such as changing a model parameter, stepping through an experiment, highlighting a trace, or switching between comparable results.
+
 ## Concept explainer (for learning a new topic)
 
 For "explain consistent hashing to me" or "how does our rate limiter actually work."
