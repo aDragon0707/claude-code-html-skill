@@ -37,6 +37,7 @@ HTML = 临时操作台 / 可视化 / 编辑器 / 调度台 / 导出器
 - 动画/交互原型：点击、拖拽、调参、复制参数
 - SVG / 流程图 / 架构图
 - 状态报告 / 事故报告 / 研究解释
+- 论文出版页：把 PDF / DOCX / Markdown 研究论文重构为可视化章节索引、作者元数据、固定目录、宽幅图表与完整图注的长文 HTML
 - 实施计划：milestone、data flow、risk table、not doing
 - 一次性编辑器：triage board、feature flags、prompt tuner
 - Obsidian/Markdown 回写工作流
@@ -102,6 +103,14 @@ Claude Code HTML Skill
 
 这个模式不是“让一个 prompt 做所有任务”。它的默认导出是单任务 prompt，执行后要求 AI 返回 execution receipt，再把结果写回 Obsidian/Markdown。
 
+### 5. 论文出版页
+
+```text
+使用 Claude Code HTML Skill，把这篇论文整理成一个单文件、离线可读的 HTML 出版页。保留作者、章节、公式、图表、图注、引用和局限性；用可视化章节索引、固定目录和宽幅证据图提升长文阅读体验。
+```
+
+该模式参考 Anthropic Transformer Circuits 研究页面的出版语法，但明确禁止复制其 logo、吉祥物、论文正文或专属插图。
+
 ## 目录结构
 
 ```text
@@ -110,6 +119,7 @@ skill/
   agents/
     openai.yaml
   references/
+    paper-publication.md
     official-20-patterns.md
     official-details.md
     markdown-obsidian-loop.md
@@ -123,6 +133,8 @@ skill/
     reports-and-research.md
     decks.md
     matching-your-style.md
+  assets/
+    paper-publication-template.html
 ```
 
 ## 和官方/社区的关系
@@ -133,6 +145,7 @@ skill/
 
 - Anthropic 官方文章：[Using Claude Code: The unreasonable effectiveness of HTML](https://claude.com/blog/using-claude-code-the-unreasonable-effectiveness-of-html)
 - Anthropic 官方示例：[anthropics/html-effectiveness](https://github.com/anthropics/html-effectiveness)
+- Anthropic Transformer Circuits 研究页面：[Verbalizable Representations Form a Global Workspace in Language Models](https://transformer-circuits.pub/2026/workspace/index.html)
 - Anthropic Skills / artifact builder 思路：[anthropics/skills](https://github.com/anthropics/skills)
 - 社区 skill：[dogum/html-artifacts](https://github.com/dogum/html-artifacts)
 
