@@ -44,6 +44,25 @@ Supported patterns:
 - Multi-AI dispatch boards with per-task prompt export
 - A complete solo multi-AI operating loop: task assignment, single-task prompt export, execution receipt, Markdown write-back, Obsidian sync, and status tracking
 
+### Architecture diagrams with Archify
+
+For architecture, workflow, sequence, dataflow, and lifecycle diagrams, this skill bundles an Archify renderer that produces validated, self-contained HTML.
+
+```text
+Claude Code HTML Skill = task routing and HTML artifact workflow
+Archify = specialized diagram renderer and validator
+```
+
+Supported diagram types:
+
+| Type | Use for |
+|---|---|
+| `architecture` | Services, components, infrastructure, and security boundaries |
+| `workflow` | Processes, approvals, tool calls, and runbooks |
+| `sequence` | API call chains, request/response, and async flows |
+| `dataflow` | ETL, data pipelines, lineage, and consumers |
+| `lifecycle` | States, retries, waiting, and terminal outcomes |
+
 ## Design principles
 
 1. **Start with the user's job**  
@@ -68,6 +87,8 @@ Copy `skill/` into your Codex skills directory:
 ```powershell
 Copy-Item -Recurse .\skill "$env:USERPROFILE\.codex\skills\claude-code-html-skill"
 ```
+
+The Archify runtime is included in `skill/vendor/archify/`; no separate Archify installation is required. Archify commands require Node.js `>=18`.
 
 Restart Codex or open a new session. Then type `/` and search:
 
@@ -111,6 +132,21 @@ Use Claude Code HTML Skill to turn this paper into a self-contained offline HTML
 
 This pattern borrows publication grammar from Anthropic Transformer Circuits research pages while explicitly forbidding reuse of their logo, mascot, paper text, or article-specific illustrations.
 
+### Chinese architecture workflow
+
+```text
+Use Claude Code HTML Skill to turn this project's request path into a Chinese workflow diagram.
+Requirements:
+- use the Archify workflow renderer;
+- preserve real API names and code identifiers;
+- run validate before deliver;
+- output one self-contained offline HTML file.
+```
+
+See [`skill/references/archify-integration.md`](skill/references/archify-integration.md) for the detailed routing and validation workflow.
+
+Diagram artifacts are validated before delivery. A showcase pass requires 9/9 artifact checks, zero composition errors, zero warnings, and a self-contained HTML output.
+
 ## Structure
 
 ```text
@@ -135,6 +171,13 @@ skill/
     matching-your-style.md
   assets/
     paper-publication-template.html
+  vendor/
+    archify/
+      bin/
+      renderers/
+      schemas/
+      examples/
+      LICENSE
 ```
 
 ## Relationship to official and community work
@@ -156,6 +199,10 @@ This repo adds:
 - Multi-AI dispatch and per-task prompt export rules
 - User-experience-first constraints: less wall-of-text, less lost context, fewer giant omnibus prompts
 
+Archify validation proves diagram structure and layout checks, not the truth of a real repository's topology. When diagrams represent real code, inspect and cite repository evidence. Mermaid input is converted into fresh Archify JSON; Mermaid styling is not copied mechanically.
+
 ## License
 
 Apache-2.0. See [LICENSE](LICENSE).
+
+The bundled Archify runtime is MIT-licensed. See [`skill/vendor/archify/LICENSE`](skill/vendor/archify/LICENSE).
