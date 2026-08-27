@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checker positive fixture</title>
+</head>
+<body>
+  <main>
+    <h1>Multi-agent dispatcher</h1>
+    <p>Source data: Project/Dashboard.md and Project/Worklogs/2026-05-30.md.</p>
+    <button data-export-label="Copy Task Prompt" onclick="copyText('Task prompt')">Copy Task Prompt</button>
+    <button aria-label="Copy Worklog Entry" onclick="copyText('Worklog entry')">Copy worklog</button>
+    <section>
+      <h2>Markdown Write-Back</h2>
+      <p>Target markdown: Project/Worklogs/2026-05-30.md</p>
+      <pre>[[Project MOC]] #tags
+- [ ] T-001 Ship export controls</pre>
+    </section>
+  </main>
+  <script id="artifact-contract" type="application/json">
+  {
+    "primary_job": "dispatcher",
+    "selected_pattern": "solo multi-AI dispatcher",
+    "why_html": "Task cards need filtering, state, and focused prompt export.",
+    "sources_used": ["Project/Dashboard.md", "Project/Worklogs/2026-05-30.md"],
+    "exports": [
+      {
+        "label": "Copy Task Prompt",
+        "format": "prompt",
+        "scope": "single",
+        "target": "next Codex session"
+      },
+      {
+        "label": "Copy Worklog Entry",
+        "format": "markdown",
+        "scope": "changed-only",
+        "target": "Project/Worklogs/2026-05-30.md"
+      }
+    ],
+    "verification": ["opens_offline", "export_works", "first_viewport_passes"]
+  }
+  </script>
+  <script>
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text);
+      }
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+      return Promise.resolve();
+    }
+  </script>
+</body>
+</html>

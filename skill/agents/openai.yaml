@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claude Code HTML Skill"
+  short_description: "Offline HTML artifacts and research publications"
+  default_prompt: "Use $claude-code-html-skill to turn this task or paper into the right self-contained offline HTML artifact, with evidence-led layout, a clear first viewport, and focused export controls only when needed."

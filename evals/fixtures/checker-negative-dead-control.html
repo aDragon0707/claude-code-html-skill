@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checker negative dead control fixture</title>
+</head>
+<body>
+  <main>
+    <h1>Dispatcher with dead export controls</h1>
+    <button data-export-label="Copy Task Prompt">Copy Task Prompt</button>
+  </main>
+  <script id="artifact-contract" type="application/json">
+  {
+    "primary_job": "dispatcher",
+    "selected_pattern": "solo multi-AI dispatcher",
+    "why_html": "Task cards need focused prompt export.",
+    "sources_used": ["Project/Dashboard.md"],
+    "exports": [
+      {
+        "label": "Copy Task Prompt",
+        "format": "prompt",
+        "scope": "single",
+        "target": "next Codex session"
+      }
+    ],
+    "verification": ["opens_offline", "export_works", "first_viewport_passes"]
+  }
+  </script>
+  <script>
+    function copyText(text) {
+      return navigator.clipboard.writeText(text);
+    }
+  </script>
+</body>
+</html>
