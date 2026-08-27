@@ -44,6 +44,25 @@ HTML = 临时操作台 / 可视化 / 编辑器 / 调度台 / 导出器
 - 多 AI 调度台：单任务 prompt 导出、owner、blocker、evidence
 - 一个人管理多个 AI 的正式闭环：任务分配、单任务 prompt、执行回执、Markdown 回写、Obsidian 同步、状态追踪
 
+### 架构图与 Archify
+
+对于架构、workflow、sequence、dataflow 和 lifecycle 图表，本 skill 内置 Archify renderer，可生成经过验证的 self-contained HTML。
+
+```text
+Claude Code HTML Skill = 任务路由与 HTML artifact 工作流
+Archify = 专用 diagram renderer 与 validator
+```
+
+支持的图表类型：
+
+| 类型 | 用途 |
+|---|---|
+| `architecture` | 服务、组件、基础设施和安全边界 |
+| `workflow` | 流程、审批、工具调用和 runbook |
+| `sequence` | API 调用链、请求/响应和异步流程 |
+| `dataflow` | ETL、数据管道、数据血缘和消费者 |
+| `lifecycle` | 状态、重试、等待和终态 |
+
 ## 最重要的设计原则
 
 1. **先判断用户要完成什么动作**  
@@ -68,6 +87,8 @@ HTML = 临时操作台 / 可视化 / 编辑器 / 调度台 / 导出器
 ```powershell
 Copy-Item -Recurse .\skill "$env:USERPROFILE\.codex\skills\claude-code-html-skill"
 ```
+
+Archify runtime 已包含在 `skill/vendor/archify/` 中，无需单独安装 Archify。运行 Archify 命令需要 Node.js `>=18`。
 
 然后重启 Codex，或新开一个会话。打 `/` 搜索：
 
@@ -111,6 +132,21 @@ Claude Code HTML Skill
 
 该模式参考 Anthropic Transformer Circuits 研究页面的出版语法，但明确禁止复制其 logo、吉祥物、论文正文或专属插图。
 
+### 6. 中文架构 workflow
+
+```text
+使用 Claude Code HTML Skill，把这个项目的请求链路画成中文 workflow。
+要求：
+- 使用 Archify workflow renderer；
+- 保留真实 API 名称和代码标识；
+- validate 通过后再 deliver；
+- 输出单文件离线 HTML。
+```
+
+架构图的详细路由和验证流程见 [`skill/references/archify-integration.md`](skill/references/archify-integration.md)。
+
+Diagram artifacts are validated before delivery. A showcase pass requires 9/9 artifact checks, zero composition errors, zero warnings, and a self-contained HTML output.
+
 ## 目录结构
 
 ```text
@@ -135,6 +171,13 @@ skill/
     matching-your-style.md
   assets/
     paper-publication-template.html
+  vendor/
+    archify/
+      bin/
+      renderers/
+      schemas/
+      examples/
+      LICENSE
 ```
 
 ## 和官方/社区的关系
@@ -156,6 +199,10 @@ skill/
 - 加入多 AI 调度和单任务 prompt 导出规则
 - 强调使用者体感：少读长文、少丢上下文、少复制大杂烩 prompt
 
+Archify validation 证明图形结构和布局通过检查，不自动证明真实仓库拓扑事实。基于真实代码生成架构图时，仍需提供或检查代码证据。Mermaid 输入会被转换为新的 Archify JSON，不直接照搬 Mermaid 样式。
+
 ## License
 
 Apache-2.0。见 [LICENSE](LICENSE)。
+
+The bundled Archify runtime is MIT-licensed. See [`skill/vendor/archify/LICENSE`](skill/vendor/archify/LICENSE)。
