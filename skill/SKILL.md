@@ -80,6 +80,19 @@ Quick routing:
 
 For mixed requests, combine two patterns only when both serve the same job. Do not create a generic dashboard with every section.
 
+### Architecture diagrams: use the bundled Archify renderer
+
+When the primary job is to explain or explore a real or described system topology, workflow, API sequence, data flow, or lifecycle, route the diagram portion through the bundled Archify renderer in `vendor/archify/`.
+
+- Read [references/archify-integration.md](references/archify-integration.md) when the task matches this branch.
+- Choose exactly one Archify type: `architecture`, `workflow`, `sequence`, `dataflow`, or `lifecycle`.
+- Read the matching schema and one JSON example from `vendor/archify/` before authoring the candidate. Treat examples as shape references, not facts.
+- Write the JSON candidate first, then validate it with `node vendor/archify/bin/archify.mjs validate ... --quality showcase --json`.
+- Deliver only after validation passes: `node vendor/archify/bin/archify.mjs deliver ... --quality showcase --json`.
+- Keep the generated HTML self-contained and apply this skill's HTML gate, first-viewport, offline, and output-path rules around it.
+
+**Completion criterion:** The diagram candidate has a passing Archify validation receipt, and the delivered HTML is included as the single purpose-built artifact or as the clearly scoped diagram section of one.
+
 ## Universal Artifact Rules
 
 Every artifact must satisfy:
